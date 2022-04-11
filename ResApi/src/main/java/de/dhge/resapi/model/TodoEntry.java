@@ -1,6 +1,6 @@
 package de.dhge.resapi.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ public class TodoEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long oid;
-	private LocalDate creationDate;
+	private LocalDateTime creationDate;
 	private String entryTitle;
 	
 	@Override
@@ -36,16 +36,26 @@ public class TodoEntry {
 		return Objects.equals(creationDate, other.creationDate) && Objects.equals(entryTitle, other.entryTitle)
 				&& Objects.equals(oid, other.oid);
 	}
+	
+	public String toJSONString() {
+		StringBuilder strBuilder = new StringBuilder();
+		
+		strBuilder.append("{\"oid\": \"" + oid + "\",");
+		strBuilder.append("\"title\": \"" + entryTitle + "\",");
+		strBuilder.append("\"date\": \"" + creationDate + "\"}");
+		
+		return strBuilder.toString();
+	}
 
 	public Long getOid() {
 		return oid;
 	}
 
-	public LocalDate getCreationDate() {
+	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(LocalDate creationDate) {
+	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
 
