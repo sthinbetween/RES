@@ -1,7 +1,7 @@
 version: "3.7"
 services:
-  api_service:
-    build: .
+  todoapi:
+    image: "sthinbetween/todoapi"
     restart: always
     ports:
       - 8080:8080

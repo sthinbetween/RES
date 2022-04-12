@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maria-db
+  labels:
+    app: todoapi
+    type: database
+spec:
+  # With one replica it is enough
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapi
+      type: database
+  # Pod definition
+  template:
+    metadata:
+      # Some basic metadata to be later used with services
+      labels:
+        app: todoapi
+        type: database
+    spec:
+      containers:
+        # Image information
+        - name: maria-db
+          image: bitnami/mariadb:10.1.24-r2
+          # Port information for later use with services
+          ports:
+            - containerPort: 3306
+              name: db-port
+          # Environment variables for configuration
+          env:
+            # Database that will be created
+            # WordPress must use these credentials
+            - name: MARIADB_USER
+              value: restapi
+            - name: MARIADB_DATABASE
+              value: restDB
+            - name: MARIADB_PASSWORD
+              value: MDB-DEV-2022!
+            - name: MARIADB_ROOT_PASSWORD
+              value: MDB.DHGE2022!
