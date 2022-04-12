@@ -10,3 +10,9 @@ Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
 - docker-compose build
 - docker-compose up
 
+## K8S
+
+- microk8s auf allen beteiligten Servern installieren
+- auf Master mit "microk8s add-node" den Join-Link ausgeben lassen 
+- auf anderen Nodes mit "microk8s join <JOIN_LINK>" beitreten 
+
