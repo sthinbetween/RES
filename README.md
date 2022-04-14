@@ -25,7 +25,7 @@ $ sudo usermod -aG microk8s $USER
 $ su - $USER
 $ newgrp microk8s
 
-# 4. Auf einer der drei VMs (zukünftiger Master) Addons aktivieren 
+# 4. Addons aktivieren (auf allen Nodes)
 $ microk8s enable dns storage dashboard
 ```
 
@@ -42,7 +42,7 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 ```
 - ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
-### Nodes hinzufügen 
+### Nodes hinzufügen (Unter Vorbehalt, Helm-Chart funktioniert bisher nur mit einem Node.)
 
 - auf (zukünftiger) Master-Node: 
 ```bash 
