@@ -54,18 +54,19 @@ $ microk8s add-node
 ```bash
 $ microk8s kubectl get no
 ```
-## Java bauen 
+
+## RestAPI selbst bauen 
+
+### Java bauen 
 
 - mit "$sudo mvn install -DskipTests" bauen, da sonst der Datenbankstring Fehler wirft
 
-## Docker
+### Docker
 
 - docker-compose build
 - docker-compose up
 
-## K8S
+## Anwendung und Datenbank auf Microk8s bereitstellen
 
-- microk8s auf allen beteiligten Servern installieren
-- auf Master mit "microk8s add-node" den Join-Link ausgeben lassen 
-- auf anderen Nodes mit "microk8s join <JOIN_LINK>" beitreten 
+- 
 
