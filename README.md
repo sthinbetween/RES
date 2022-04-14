@@ -55,6 +55,19 @@ $ microk8s add-node
 $ microk8s kubectl get no
 ```
 
+## Bereitstellung des MariaDB-Galera-Clusters
+
+- auf Master-Node: 
+```bash
+$ sudo snap install helm --classic
+$ sudo microk8s enable helm3
+$ microk8s.kubectl config view --raw > $HOME/.kube/config
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ 
+```
+
+
+
 ## RestAPI selbst bauen 
 
 ### Java bauen 
