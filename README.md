@@ -66,6 +66,7 @@ $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ 
 ```
 
+[Helm-Config](ResApi/helm/values.yaml)
 
 
 ## RestAPI selbst bauen 
