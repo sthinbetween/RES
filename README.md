@@ -65,8 +65,12 @@ $ microk8s.kubectl config view --raw > $HOME/.kube/config
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ 
 ```
+- [Helm-Config](ResApi/helm/values.yaml) auf Zielsystem laden 
 
-[Helm-Config](ResApi/helm/values.yaml)
+```bash
+$ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
+```
+- mit ```microk8s kubectl get pods``` Status der Pods checken und warten, bis alle drei DB-Pods Ready und Running erreicht haben
 
 
 ## RestAPI selbst bauen 
