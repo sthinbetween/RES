@@ -25,10 +25,20 @@ $ sudo usermod -aG microk8s $USER
 $ su - $USER
 $ newgrp microk8s
 
+# 4. Auf einer der drei VMs (zukünftiger Master) Addons aktivieren 
+$ microk8s enable dns storage dashboard
 ```
 
-
-
+### Auf Microk8s-Dashboard zugreifen 
+- Für Zugriff auf das Dashboard wird eine weitere Maschine im selben Netz mit Browser benötigt (Firefox sinnvoll, Chrome macht Probleme mit den Zertifikaten)
+- Auf der Master VM zunächst den Zugriffstoken auslesen: 
+```bash
+$ token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
+microk8s kubectl -n kube-system describe secret $token
+```
+- dann das Dashboard im lokalen Netz verfügbar machen:  
+```bash
+$ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
 
 
 ## Java bauen 
