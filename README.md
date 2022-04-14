@@ -42,6 +42,18 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 ```
 - ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
+### Nodes hinzufügen 
+
+- auf (zukünftiger) Master-Node: 
+```bash 
+$ microk8s add-node
+```
+- den so erhaltenen Befehl ```microk8s join <Master-Node Link>``` auf einer der anderen VMs ausführen 
+- Link ist nur einmal gültig: daher für die andere VM wiederholen
+- Ausgabe der nun vorhanden Maschinen im Cluster: 
+```bash
+$ microk8s kubectl get no
+```
 ## Java bauen 
 
 - mit "$sudo mvn install -DskipTests" bauen, da sonst der Datenbankstring Fehler wirft
