@@ -39,7 +39,8 @@ microk8s kubectl -n kube-system describe secret $token
 - dann das Dashboard im lokalen Netz verfügbar machen:  
 ```bash
 $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
-
+```
+- ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
 ## Java bauen 
 
