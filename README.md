@@ -71,7 +71,7 @@ $
 $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 ```
 - mit ```microk8s kubectl get pods``` Status der Pods checken und warten, bis alle drei DB-Pods Ready und Running erreicht haben
-
+- unter den Namen ```maria-db-0```, ```maria-db-1``` und ```maria-db-2``` sind die Instanzen nun erreichbar und replizieren untereinander
 
 ## RestAPI selbst bauen 
 
