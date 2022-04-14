@@ -65,7 +65,7 @@ $ microk8s.kubectl config view --raw > $HOME/.kube/config
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ 
 ```
-- [Helm-Config](ResApi/helm/values.yaml) auf Zielsystem laden 
+- [Helm-Config](k8s-config/helm.yaml) auf Zielsystem laden 
 
 ```bash
 $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
