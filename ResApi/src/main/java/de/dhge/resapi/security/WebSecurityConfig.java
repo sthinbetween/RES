@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.antMatchers("/version", "/list", "/add", "/delete").permitAll()
        	
             .anyRequest().authenticated()
-            .security.httpBasic().disable();;
+            .security.httpBasic().disable();
         
         http.headers().frameOptions().disable(); //for H2
     }
