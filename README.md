@@ -101,7 +101,18 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - das Deployment erstellt (3 Replicas der ToDo-Api)
   - ein Service erstellt um die ContainerPorts verfügbar zu machen 
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
+- die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen
 
+## 5. API-Nutzung
+
+für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Parameter mitzugeben 
+
+- GET.../version -> zeigt 0.0.1 als Versionsnummer an
+- GET.../list -> zeigt alle Einträge
+- POST.../add -> fügt einen Eintrag hinzu
+  - zusätzlicher Parameter: "entryTitle" für den Titel des ToDo-Eintrags
+- DELETE.../delete -> löscht Einträge
+  - zusätzlicher Parameter: "entryTitle" ODER "entryOid" für den zu löschenden Eintrag
 
 ## RestAPI selbst bauen 
 
