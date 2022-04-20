@@ -74,15 +74,33 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 - unter den Namen ```maria-db-0```, ```maria-db-1``` und ```maria-db-2``` sind die Instanzen nun erreichbar und replizieren untereinander
 - als Service (also für andere Pods erreichbar) steht ```maria-db``` zur Verfügung
 
-## API bereitstellen
-
-- [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
-- mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden 
-
-## LoadBalancer instalieren und konfigurieren
+## LoadBalancer installieren und konfigurieren
 
 > folgende Schritte wurden auf Basis der Dokumentation von HAProxy ausgeführt https://www.haproxy.com/documentation/kubernetes/latest/installation/community/kubernetes/
 
+```bash
+# Repository hinzufügen und Repo-Liste aktualisieren  
+helm repo add haproxytech https://haproxytech.github.io/helm-charts
+helm repo update
+
+# Helm-Chart installieren, dafür wird ein separater Namespace erstellt und die nach außen freigegebenen NodePorts gemappt
+
+helm install kubernetes-ingress haproxytech/kubernetes-ingress \
+    --create-namespace \
+    --namespace haproxy-controller \
+    --set controller.service.nodePorts.http=30000 \
+    --set controller.service.nodePorts.https=30001 \
+    --set controller.service.nodePorts.stat=30002
+```
+
+## API bereitstellen
+
+- [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
+- mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden
+- damit wird: 
+  - das Deployment erstellt (3 Replicas der ToDo-Api)
+  - ein Service erstellt um die ContainerPorts verfügbar zu machen 
+  - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
 
 
 ## RestAPI selbst bauen 
