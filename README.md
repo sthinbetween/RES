@@ -1,13 +1,13 @@
 # RES
 Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
 
-## Microk8s-Cluster aufbauen 
+## 1. Microk8s-Cluster aufbauen 
 Das Cluster wird hier im Beispiel auf Ubuntu-Server VMs auf einem ProxMox-Hypervisor aufgesetzt.
 
-### Ubuntu-Server installieren
+### 1.1 Ubuntu-Server installieren
 Auf jeder der beteiligten VMs wurde Ubuntu-Server 20.04 LTS installiert.
 
-### Microk8s installieren 
+### 1.2 Microk8s installieren 
 Für die Installation von microk8s wurde folgendes Tutorial genutzt: 
 https://adamtheautomator.com/microk8s/
 
@@ -29,7 +29,7 @@ $ newgrp microk8s
 $ microk8s enable dns storage dashboard
 ```
 
-### Auf Microk8s-Dashboard zugreifen 
+### 1.3 Auf Microk8s-Dashboard zugreifen 
 - Für Zugriff auf das Dashboard wird eine weitere Maschine im selben Netz mit Browser benötigt (Firefox sinnvoll, Chrome macht Probleme mit den Zertifikaten)
 - Auf der Master VM zunächst den Zugriffstoken auslesen: 
 ```bash
@@ -42,7 +42,7 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 ```
 - ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
-### Nodes hinzufügen (Unter Vorbehalt, Helm-Chart funktioniert bisher nur mit einem Node.)
+### 1.4 Nodes hinzufügen (Unter Vorbehalt, Helm-Chart funktioniert bisher nur mit einem Node.)
 
 - auf (zukünftiger) Master-Node: 
 ```bash 
@@ -55,7 +55,7 @@ $ microk8s add-node
 $ microk8s kubectl get no
 ```
 
-## Bereitstellung des MariaDB-Galera-Clusters
+## 2. Bereitstellung des MariaDB-Galera-Clusters
 
 - auf Master-Node: 
 ```bash
@@ -74,7 +74,7 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 - unter den Namen ```maria-db-0```, ```maria-db-1``` und ```maria-db-2``` sind die Instanzen nun erreichbar und replizieren untereinander
 - als Service (also für andere Pods erreichbar) steht ```maria-db``` zur Verfügung
 
-## LoadBalancer installieren und konfigurieren
+## 3. LoadBalancer installieren und konfigurieren
 
 > folgende Schritte wurden auf Basis der Dokumentation von HAProxy ausgeführt https://www.haproxy.com/documentation/kubernetes/latest/installation/community/kubernetes/
 
@@ -93,7 +93,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
     --set controller.service.nodePorts.stat=30002
 ```
 
-## API bereitstellen
+## 4. API bereitstellen
 
 - [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
 - mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden
