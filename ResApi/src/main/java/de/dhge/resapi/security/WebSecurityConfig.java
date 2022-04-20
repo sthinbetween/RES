@@ -24,5 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and().httpBasic();
         
         http.headers().frameOptions().disable(); //for H2
+        http.formLogin().disable();
     }
 }
