@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  todoapi:
+    image: "sthinbetween/todoapi"
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - maria_db
+    command: sh -c './wait-for mysql_db:3306 -- npm start'
+  maria_db:
+    image: "mariadb:10.5.8"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: restDB
+      MYSQL_USER: restapi
+      MYSQL_PASSWORD: MDB-DEV-2022!
+      MYSQL_ROOT_PASSWORD: MDB.DHGE2022!
