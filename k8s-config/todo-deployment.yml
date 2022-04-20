@@ -19,7 +19,7 @@ spec:
           ports:
           - name: http
             protocol: TCP
-            hostPort: 8080
+            containerPort: 8080
           env:
           - name: SPRING_DATASOURCE_URL
             value: "jdbc:mariadb://maria-db:3306/restDB"
