@@ -78,7 +78,12 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 
 - [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
 - mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden 
-- mit ``````
+
+## LoadBalancer instalieren und konfigurieren
+
+> folgende Schritte wurden auf Basis der Dokumentation von HAProxy ausgeführt https://www.haproxy.com/documentation/kubernetes/latest/installation/community/kubernetes/
+
+
 
 ## RestAPI selbst bauen 
 
