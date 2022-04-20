@@ -76,6 +76,9 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 
 ## API bereitstellen
 
+- [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
+- mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden 
+- mit ``````
 
 ## RestAPI selbst bauen 
 
