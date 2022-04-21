@@ -13,14 +13,14 @@ FILE=./galera-helm.yaml
 if test -f "$FILE"; then
     echo -e "${GREEN}Galera-Konfig vorhanden, überspringe.${NC}"
 else
-   wget https://github.com/sthinbetween/RES/blob/357513884bbb389318894d788fca59041b9e941f/k8s-config/galera-helm.yaml 
+   wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/galera-helm.yaml 
    echo -e "${GREEN}Galera-Konfig geladen${NC}"
 fi
 FILE=./todoapi-deployment.yaml
 if test -f "$FILE"; then
     echo -e "${GREEN}API-Konfig vorhanden, überspringe.${NC}"
 else
-   wget https://github.com/sthinbetween/RES/blob/357513884bbb389318894d788fca59041b9e941f/k8s-config/galera-helm.yaml
+   wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/todoapi-deployment.yaml
    echo -e "${GREEN}API-Konfig geladen${NC}"
 fi
 echo -e "${GREEN}Konfigurationen geladen...${NC}"
