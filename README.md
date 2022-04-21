@@ -9,7 +9,7 @@ Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen
 Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
 >  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
 
-Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provosionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von loaklem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
+Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provosionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von lokalem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
 
 > Nutzung von lokalem Storage https://vocon-it.com/2018/12/20/kubernetes-local-persistent-volumes/
 
@@ -28,40 +28,34 @@ Schritte:
 
 ```bash
 # 1. snap installieren 
-$ sudo apt install snapd 
+sudo apt install snapd 
 
 # 2. microk8s installieren 
-$ sudo snap install microk8s --classic
+sudo snap install microk8s --classic
 
 # 3. für Bequemlichkeit (sudo nicht nötig) aktuellen Nutzer zur microk8s-Gruppe hinzufügen
-$ sudo usermod -aG microk8s $USER
-$ su - $USER
-$ newgrp microk8s
+sudo usermod -aG microk8s $USER
+su - $USER
+newgrp microk8s
 
-# 4. Addons aktivieren (auf allen Nodes)
-$ microk8s enable dns storage dashboard helm3
+# 4. Addons aktivieren (auf der zukünftigen Masternode)
+microk8s enable dns storage dashboard helm3
 ```
 
 ### 1.3 Auf Microk8s-Dashboard zugreifen 
 - Für Zugriff auf das Dashboard wird eine weitere Maschine im selben Netz mit Browser benötigt (Firefox sinnvoll, Chrome macht Probleme mit den Zertifikaten)
-- Auf der Master VM zunächst den Zugriffstoken auslesen: 
+- Auf der Master-VM zunächst den Zugriffstoken auslesen: 
 ```bash
-$ token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
+token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
 microk8s kubectl -n kube-system describe secret $token
 ```
 - dann das Dashboard im lokalen Netz verfügbar machen:  
 ```bash
-$ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
+microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
 ```
-- ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
+- ```https://<Master-Node-IP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
-### 1.4 NFS-Share für persistenten Storage bereitstellen
-- dieser Schritt ist bei Setups mit einer Node oder bereits eingerichtetem nicht lokalem Storageprovider nicht notwendig
-- das MariaDB-Galera Setup lässt sich jedcoh nicht einrichten, wenn lediglich lokaler Storage (hostpath) bereitgestellt wird
-- daher wurde im Clusternetz noch ein NFS-Share bereitgestellt
-> https://microk8s.io/docs/nfs wurde als Anleitung benutzt
-
-### 1.5 Nodes hinzufügen
+### 1.4 Nodes hinzufügen
 
 - auf (zukünftiger) Master-Node: 
 ```bash 
@@ -73,6 +67,32 @@ $ microk8s add-node
 ```bash
 $ microk8s kubectl get no
 ```
+
+### 1.5 NFS-Share für persistenten Storage bereitstellen
+- dieser Schritt ist bei Setups mit einer Node oder bereits eingerichtetem nicht lokalem Storageprovider nicht notwendig
+- das MariaDB-Galera Setup lässt sich jedcoh nicht einrichten, wenn lediglich lokaler Storage (hostpath) bereitgestellt wird
+- daher wurde im Clusternetz noch ein NFS-Share bereitgestellt
+> https://microk8s.io/docs/nfs wurde als Anleitung benutzt
+
+- auf dem NFS-Server:
+```
+sudo apt-get install nfs-kernel-server
+sudo mkdir -p /srv/nfs
+sudo chown nobody:nogroup /srv/nfs
+sudo chmod 0777 /srv/nfs
+sudo mv /etc/exports /etc/exports.bak
+echo '/srv/nfs 10.0.0.0/24(rw,sync,no_subtree_check)' | sudo tee /etc/exports
+sudo systemctl restart nfs-kernel-server
+```
+- auf der Master-Node: 
+```
+microk8s helm3 repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+microk8s helm3 repo update
+microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
+    --namespace kube-system \
+    --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
+```
+
 # 2. Bereitstellung des Anwendungsstacks im Cluster
 
 ## 2.1 Automatische Bereitstellung per Skript 
