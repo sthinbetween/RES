@@ -78,6 +78,8 @@ $ microk8s kubectl get no
 Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter 1. genannten Voraussetzungen erfüllt sind. 
 Folgende Schritte sind für die Nutzung zu befolgen: 
 
+1. ``wget https://raw.githubusercontent.com/username/repository/branch/path/filename.md```
+
 ## 2. Bereitstellung des MariaDB-Galera-Clusters
 
 
