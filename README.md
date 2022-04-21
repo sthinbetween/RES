@@ -70,7 +70,7 @@ $ microk8s kubectl get no
 
 ### 1.5 NFS-Share für persistenten Storage bereitstellen
 - dieser Schritt ist bei Setups mit einer Node oder bereits eingerichtetem nicht lokalem Storageprovider nicht notwendig
-- das MariaDB-Galera Setup lässt sich jedcoh nicht einrichten, wenn lediglich lokaler Storage (hostpath) bereitgestellt wird
+- das MariaDB-Galera Setup lässt sich jedoch nicht einrichten, wenn lediglich lokaler Storage (hostpath) bereitgestellt wird
 - daher wurde im Clusternetz noch ein NFS-Share bereitgestellt
 > https://microk8s.io/docs/nfs wurde als Anleitung benutzt
 
