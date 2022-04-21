@@ -188,9 +188,23 @@ sudo apt install maven
 sudo mvn install -DskipTests
 ```
 
-## 4.3 In lokaler Docker-Repository bereitstellen 
+## 4.3 In lokaler Docker-Registry bereitstellen und in K8s registrieren 
 
-- docker-compose build
-- docker-compose up
+> genutzte Anleitung: https://microk8s.io/docs/registry-images
 
+```bash
+# im /ResApi Ordner: 
+docker build . -t todoapi:local
+# prüfen, ob das Image in der Docker-Registry vorhanden ist: 
+docker images
+# Registrieren des Images im K8s-Image-Cache
+docker save todoapi > todoapi.tar
+microk8s ctr image import todoapi.tar
+# Prüfen, ob das Image in K8s vorhanden ist: 
+microk8s ctr images ls
 
+```
+## 4.4. Bereitstellung des Anwendungsstacks 
+
+Die Bereitstellung kann mit den in 2. beschriebenen Schritten vollzogen werden. 
+Jedoch muss für die Bereitstellung per Skript zusätzlich --local als Argument bei der Skriptausführung übergeben werden. Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
