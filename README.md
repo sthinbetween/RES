@@ -81,9 +81,9 @@ Folgende Schritte sind für die Nutzung zu befolgen:
 ```bash
 # Download des Shell-Skripts auf den Master-Node
 # Folgender Link für Microk8s (Aufruf von Funktionen mit microk8s kubectl)
-wget https://github.com/sthinbetween/RES/blob/1b65868b1308b4d74e9b03f45c1188c8166ede0e/k8s-config/autoconfig-microk8s.sh
+wget wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-microk8s.sh
 # Folgender Link für andere K8s-Versionen (Aufruf mit kubectl)
-wget https://github.com/sthinbetween/RES/blob/1b65868b1308b4d74e9b03f45c1188c8166ede0e/k8s-config/autoconfig-k8s.sh
+wget wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-k8s.sh
 
 # Skript ausführbar machen 
 sudo chmod +x autoconfig-microk8s.sh
