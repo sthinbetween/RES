@@ -2,9 +2,9 @@
 Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
 
 # 1. Microk8s-Cluster aufbauen 
-Wenn bereits ein K8s-Cluster vorhanden ist, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit Punkt 2 begonnnen werden.
+Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen erfüllt sind, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit [Abschnitt 2](https://github.com/sthinbetween/RES#2-bereitstellung-des-anwendungsstacks-im-cluster) begonnnen werden.
 
-Voraussetzungen für das Cluster:
+**Voraussetzungen für das Cluster:**
 Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
 >  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
 
