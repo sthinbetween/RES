@@ -42,6 +42,12 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 ```
 - ```https://<MasterIP>:10443``` im Browser aufrufen, Zertifikatswarnung ignorieren und Token für den Login eingeben
 
+### 1.4 NFS-Share für persistenten Storage bereitstellen
+- dieser Schritt ist bei Setups mit einer Node oder bereits eingerichtetem nicht lokalem Storageprovider nicht notwendig
+- das MariaDB-Galera Setup lässt sich jedcoh nicht einrichten, wenn lediglich lokaler Storage (hostpath) bereitgestellt wird
+- daher wurde im Clusternetz noch ein NFS-Share bereitgestellt
+> https://microk8s.io/docs/nfs wurde als Anleitung benutzt
+
 ### 1.4 Nodes hinzufügen (Unter Vorbehalt, Helm-Chart funktioniert bisher nur mit einem Node.)
 
 - auf (zukünftiger) Master-Node: 
