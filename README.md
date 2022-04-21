@@ -75,7 +75,8 @@ $ microk8s kubectl get no
 ## 2. Bereitstellung des Anwendungsstacks im Cluster
 
 ### 2.1 Automatische Bereitstellung per Skript 
-
+Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter 1. genannten Voraussetzungen erfüllt sind. 
+Folgende Schritte sind für die Nutzung zu befolgen: 
 
 ## 2. Bereitstellung des MariaDB-Galera-Clusters
 
