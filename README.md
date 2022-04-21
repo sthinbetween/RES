@@ -48,7 +48,7 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 - daher wurde im Clusternetz noch ein NFS-Share bereitgestellt
 > https://microk8s.io/docs/nfs wurde als Anleitung benutzt
 
-### 1.4 Nodes hinzufügen (Unter Vorbehalt, Helm-Chart funktioniert bisher nur mit einem Node.)
+### 1.5 Nodes hinzufügen
 
 - auf (zukünftiger) Master-Node: 
 ```bash 
