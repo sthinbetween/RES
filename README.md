@@ -167,13 +167,28 @@ Die notwendigen Schritte hierfür sind:
 ## 4.1 Sourcecode laden 
 
 - [Anwendungsordner](ResApi/) auf Zielsystem laden
-```svn checkout https://github.com/sthinbetween/RES/trunk/ResApi```
+- z.B. mit: 
+```
+svn checkout https://github.com/sthinbetween/RES/trunk/ResApi
+```
 
-### Java bauen 
+## 4.2 Anwendung bauen (Ubuntu)
 
-- mit "$sudo mvn install -DskipTests" bauen, da sonst der Datenbankstring Fehler wirft
+> genutzte Anleitung: https://www.baeldung.com/install-maven-on-windows-linux-mac
+```
+# in den Anwendungsordner wechseln 
+cd ResApi
 
-### Docker
+# Java-Komponenten installieren 
+sudo apt install default-jre
+sudo apt install default-jdk 
+sudo apt install maven
+
+# Anwendung kompilieren (mit skipTests, da die Verbindung zur Datenbank noch nicht funktioniert)
+sudo mvn install -DskipTests
+```
+
+## 4.3 In lokaler Docker-Repository bereitstellen 
 
 - docker-compose build
 - docker-compose up
