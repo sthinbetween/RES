@@ -1,7 +1,19 @@
 # RES
 Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
 
-## 1. Microk8s-Cluster aufbauen 
+# 1. Microk8s-Cluster aufbauen 
+Wenn bereits ein K8s-Cluster vorhanden ist, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit Punkt 2 begonnnen werden.
+**Voraussetzungen für das Cluster:
+
+** Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
+>  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
+
+Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provosionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von loaklem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
+
+> Nutzung von lokalem Storage https://vocon-it.com/2018/12/20/kubernetes-local-persistent-volumes/
+
+Da für die Einrichtung des LoadBalancers und des Galera-Clusters Helm-Charts verwendet werden, muss Helm installiert sein und per ```[microk8s] kubectl enable helm3``` auch in K8s aktiviert werden. 
+
 Das Cluster wird hier im Beispiel auf Ubuntu-Server VMs auf einem ProxMox-Hypervisor aufgesetzt.
 
 ### 1.1 Ubuntu-Server installieren
@@ -26,7 +38,7 @@ $ su - $USER
 $ newgrp microk8s
 
 # 4. Addons aktivieren (auf allen Nodes)
-$ microk8s enable dns storage dashboard
+$ microk8s enable dns storage dashboard helm3
 ```
 
 ### 1.3 Auf Microk8s-Dashboard zugreifen 
@@ -54,14 +66,19 @@ $ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 1044
 ```bash 
 $ microk8s add-node
 ```
-- den so erhaltenen Befehl ```microk8s join <Master-Node Link>``` auf einer der anderen VMs ausführen 
+- den so erhaltenen Befehl ```microk8s join <Master-Node Link> --worker``` auf einer der anderen VMs ausführen 
 - Link ist nur einmal gültig: daher für die andere VM wiederholen
 - Ausgabe der nun vorhanden Maschinen im Cluster: 
 ```bash
 $ microk8s kubectl get no
 ```
+## 2. Bereitstellung des Anwendungsstacks im Cluster
+
+### 2.1 Automatische Bereitstellung per Skript 
+
 
 ## 2. Bereitstellung des MariaDB-Galera-Clusters
+
 
 - auf Master-Node: 
 ```bash
