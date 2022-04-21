@@ -72,15 +72,33 @@ $ microk8s add-node
 ```bash
 $ microk8s kubectl get no
 ```
-## 2. Bereitstellung des Anwendungsstacks im Cluster
+# 2. Bereitstellung des Anwendungsstacks im Cluster
 
-### 2.1 Automatische Bereitstellung per Skript 
+## 2.1 Automatische Bereitstellung per Skript 
 Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter 1. genannten Voraussetzungen erfüllt sind. 
 Folgende Schritte sind für die Nutzung zu befolgen: 
 
-1. ``wget https://raw.githubusercontent.com/username/repository/branch/path/filename.md```
+```bash
+# Download des Shell-Skripts auf den Master-Node
+# Folgender Link für Microk8s (Aufruf von Funktionen mit microk8s kubectl)
+wget https://github.com/sthinbetween/RES/blob/1b65868b1308b4d74e9b03f45c1188c8166ede0e/k8s-config/autoconfig-microk8s.sh
+# Folgender Link für andere K8s-Versionen (Aufruf mit kubectl)
+wget https://github.com/sthinbetween/RES/blob/1b65868b1308b4d74e9b03f45c1188c8166ede0e/k8s-config/autoconfig-k8s.sh
 
-## 2. Bereitstellung des MariaDB-Galera-Clusters
+# Skript ausführbar machen 
+sudo chmod +x autoconfig-microk8s.sh
+# oder
+sudo chmod +x autoconfig-k8s.sh
+
+# Skript ausführen 
+sh autoconfig-microk8s.sh
+# oder 
+sh autoconfig-k8s.sh
+```
+Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter 3. beschrieben
+
+## 2.2 Manuelle Bereitstellung 
+### 2.2.1 Bereitstellung des MariaDB-Galera-Clusters
 
 
 - auf Master-Node: 
@@ -100,7 +118,7 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 - unter den Namen ```maria-db-0```, ```maria-db-1``` und ```maria-db-2``` sind die Instanzen nun erreichbar und replizieren untereinander
 - als Service (also für andere Pods erreichbar) steht ```maria-db``` zur Verfügung
 
-## 3. LoadBalancer installieren und konfigurieren
+### 2.2.2 LoadBalancer installieren und konfigurieren
 
 > folgende Schritte wurden auf Basis der Dokumentation von HAProxy ausgeführt https://www.haproxy.com/documentation/kubernetes/latest/installation/community/kubernetes/
 
@@ -119,7 +137,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
     --set controller.service.nodePorts.stat=30002
 ```
 
-## 4. API bereitstellen
+### 2.2.3 API bereitstellen
 
 - [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
 - mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden
@@ -129,7 +147,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
 - die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen
 
-## 5. API-Nutzung
+## 3. API-Nutzung
 
 für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Parameter mitzugeben 
 
