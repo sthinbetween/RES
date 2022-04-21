@@ -3,9 +3,8 @@ Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
 
 # 1. Microk8s-Cluster aufbauen 
 Wenn bereits ein K8s-Cluster vorhanden ist, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit Punkt 2 begonnnen werden.
-**Voraussetzungen für das Cluster:
-
-** Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
+**Voraussetzungen für das Cluster:** 
+Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
 >  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
 
 Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provosionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von loaklem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
