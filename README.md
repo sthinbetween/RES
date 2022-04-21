@@ -207,4 +207,4 @@ microk8s ctr images ls
 ## 4.4. Bereitstellung des Anwendungsstacks 
 
 Die Bereitstellung kann mit den in 2. beschriebenen Schritten vollzogen werden. 
-Jedoch muss für die Bereitstellung per Skript zusätzlich ```--local``` als Argument bei der Skriptausführung übergeben werden. Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
+Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
