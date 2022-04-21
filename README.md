@@ -109,7 +109,7 @@ $ microk8s.kubectl config view --raw > $HOME/.kube/config
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ 
 ```
-- [Helm-Config](k8s-config/helm.yaml) auf Zielsystem laden 
+- [Helm-Config](k8s-config/galera-helm.yaml) auf Zielsystem laden 
 
 ```bash
 $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
@@ -139,7 +139,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
 
 ### 2.2.3 API bereitstellen
 
-- [Api-Deployment-YAML](k8s-config/todo-deployment.yml) auf Zielsystem laden
+- [Api-Deployment-YAML](k8s-config/todo-deployment.yaml) auf Zielsystem laden
 - mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden
 - damit wird: 
   - das Deployment erstellt (3 Replicas der ToDo-Api)
@@ -158,7 +158,16 @@ für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Paramet
 - DELETE.../delete -> löscht Einträge
   - zusätzlicher Parameter: "entryTitle" ODER "entryOid" für den zu löschenden Eintrag
 
-## RestAPI selbst bauen 
+# 4. RestAPI aus Sourcecode lokal bereitstellen 
+
+Die vorab vorgestellte Lösung nutzt einen in der Docker-Registry bereitgestellten Container. 
+Es ist auch möglich, diese lokal zu compilieren und bereitzustellen. 
+Die notwendigen Schritte hierfür sind: 
+
+## 4.1 Sourcecode laden 
+
+- [Anwendungsordner](ResApi/) auf Zielsystem laden
+```svn checkout https://github.com/sthinbetween/RES/trunk/ResApi```
 
 ### Java bauen 
 
