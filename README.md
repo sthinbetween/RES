@@ -124,7 +124,7 @@ sh autoconfig-microk8s.sh
 # oder 
 sh autoconfig-k8s.sh
 ```
-Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter 3. beschrieben
+Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#3-api-nutzung) beschrieben
 
 ## 2.2 Manuelle Bereitstellung 
 ### 2.2.1 Bereitstellung des MariaDB-Galera-Clusters
@@ -235,5 +235,5 @@ microk8s ctr images ls
 ```
 ## 4.4. Bereitstellung des Anwendungsstacks 
 
-Die Bereitstellung kann mit den in 2. beschriebenen Schritten vollzogen werden. 
+Die Bereitstellung kann mit den in (Abschnitt 2)[https://github.com/sthinbetween/RES/blob/main/README.md#2-bereitstellung-des-anwendungsstacks-im-cluster] beschriebenen Schritten vollzogen werden. 
 Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
