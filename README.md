@@ -103,7 +103,8 @@ microk8s kubectl patch storageclass nfs-csi -p '{"metadata": {"annotations":{"st
 # 2. Bereitstellung des Anwendungsstacks im Cluster
 
 ## 2.1 Automatische Bereitstellung per Skript 
-Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter 1. genannten Voraussetzungen erfüllt sind. 
+Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter [Abschnitt 1](https://github.com/sthinbetween/RES/blob/main/README.md#1-microk8s-cluster-aufbauen) genannten Voraussetzungen erfüllt sind. 
+
 Folgende Schritte sind für die Nutzung zu befolgen: 
 
 ```bash
