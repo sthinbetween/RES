@@ -91,6 +91,13 @@ microk8s helm3 repo update
 microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
     --namespace kube-system \
     --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
+
+# Download der YAML für die Definition des persistenten Volumes
+wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/sc-nfs.yaml
+# Anwenden im Cluster
+microk8s kubectl apply -f - < sc-nfs.yaml
+# Als default definieren 
+microk8s kubectl patch storageclass nfs-csi -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
 
 # 2. Bereitstellung des Anwendungsstacks im Cluster
@@ -102,9 +109,9 @@ Folgende Schritte sind für die Nutzung zu befolgen:
 ```bash
 # Download des Shell-Skripts auf den Master-Node
 # Folgender Link für Microk8s (Aufruf von Funktionen mit microk8s kubectl)
-wget wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-microk8s.sh
+wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-microk8s.sh
 # Folgender Link für andere K8s-Versionen (Aufruf mit kubectl)
-wget wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-k8s.sh
+wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/autoconfig-k8s.sh
 
 # Skript ausführbar machen 
 sudo chmod +x autoconfig-microk8s.sh
