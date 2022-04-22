@@ -111,10 +111,11 @@ microk8s kubectl apply -f - < sc-nfs.yaml
 # Als default definieren 
 microk8s kubectl patch storageclass nfs-csi -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
+# 2. Alternative: K8s-Cluster verwenden 
 
-# 2. Bereitstellung des Anwendungsstacks im Cluster
+# 3. Bereitstellung des Anwendungsstacks im Cluster
 
-## 2.1 Automatische Bereitstellung per Skript 
+## 3.1 Automatische Bereitstellung per Skript 
 Für die Bereitstellung ist ein Skript vorhanden, welches genutzt werden kann, wenn die unter [Abschnitt 1](https://github.com/sthinbetween/RES/blob/main/README.md#1-microk8s-cluster-aufbauen) genannten Voraussetzungen erfüllt sind. 
 
 Folgende Schritte sind für die Nutzung zu befolgen: 
@@ -138,8 +139,8 @@ sudo chmod +x autoconfig-k8s.sh
 ```
 Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#31-api-nutzung) beschrieben
 
-## 2.2 Manuelle Bereitstellung 
-### 2.2.1 Bereitstellung des MariaDB-Galera-Clusters
+## 3.2 Manuelle Bereitstellung 
+### 3.2.1 Bereitstellung des MariaDB-Galera-Clusters
 
 - auf Master-Node: 
 ```bash
@@ -158,7 +159,7 @@ $ helm install maria-db -f <Pfad-zur-values.yaml> bitnami/mariadb-galera
 - unter den Namen ```maria-db-0```, ```maria-db-1``` und ```maria-db-2``` sind die Instanzen nun erreichbar und replizieren untereinander
 - als Service (also für andere Pods erreichbar) steht ```maria-db``` zur Verfügung
 
-### 2.2.2 LoadBalancer installieren und konfigurieren
+### 3.2.2 LoadBalancer installieren und konfigurieren
 
 > folgende Schritte wurden auf Basis der Dokumentation von HAProxy ausgeführt https://www.haproxy.com/documentation/kubernetes/latest/installation/community/kubernetes/
 
@@ -177,7 +178,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
     --set controller.service.nodePorts.stat=30002
 ```
 
-### 2.2.3 API bereitstellen
+### 3.2.3 API bereitstellen
 
 - [Api-Deployment-YAML](k8s-config/todo-deployment.yaml) auf Zielsystem laden
 - mit ```microk8s kubectl apply -f <Pfad zur YAML>``` das Deployment anwenden
@@ -187,11 +188,11 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
 - die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen, Nutzungshinweise finden sich in [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#31-api-nutzung).
 
-## 3. API-Beschreibung
+## 4. API-Beschreibung
 Die API ist eine Spring-Boot-Anwendung (JAVA) und stellt grundlegende Funktionen für eine ToDo-Liste bereit. 
 Für Tests und den Build-Prozess wird Maven genutzt. 
 
-### 3.1 API-Nutzung
+### 4.1 API-Nutzung
 
 für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Parameter mitzugeben 
 
@@ -202,13 +203,13 @@ für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Paramet
 - DELETE.../delete -> löscht Einträge
   - zusätzlicher Parameter: "entryTitle" ODER "entryOid" für den zu löschenden Eintrag
 
-# 4. RestAPI aus Sourcecode lokal bereitstellen 
+# 5. RestAPI aus Sourcecode lokal bereitstellen 
 
 Die vorab vorgestellte Lösung nutzt einen in der Docker-Registry bereitgestellten Container. 
 Es ist auch möglich, diese lokal zu compilieren und bereitzustellen. 
 Die notwendigen Schritte hierfür sind: 
 
-## 4.1 Sourcecode laden 
+## 5.1 Sourcecode laden 
 
 - [Anwendungsordner](ResApi/) auf Zielsystem laden
 - z.B. mit: 
@@ -216,7 +217,7 @@ Die notwendigen Schritte hierfür sind:
 svn checkout https://github.com/sthinbetween/RES/trunk/ResApi
 ```
 
-## 4.2 Anwendung bauen (Ubuntu)
+## 5.2 Anwendung bauen (Ubuntu)
 
 > genutzte Anleitung: https://www.baeldung.com/install-maven-on-windows-linux-mac
 ```
@@ -232,7 +233,7 @@ sudo apt install maven
 sudo mvn install -DskipTests
 ```
 
-## 4.3 In lokaler Docker-Registry bereitstellen und in K8s registrieren 
+## 5.3 In lokaler Docker-Registry bereitstellen und in K8s registrieren 
 
 > genutzte Anleitung: https://microk8s.io/docs/registry-images
 
@@ -248,11 +249,11 @@ microk8s ctr image import todoapi.tar
 microk8s ctr images ls
 
 ```
-## 4.4. Bereitstellung des Anwendungsstacks 
+## 5.4. Bereitstellung des Anwendungsstacks 
 
 Die Bereitstellung kann mit den in [Abschnitt 2](https://github.com/sthinbetween/RES/blob/main/README.md#2-bereitstellung-des-anwendungsstacks-im-cluster) beschriebenen Schritten vollzogen werden. 
 Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. 
 Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
 
-# 5. Außerbetriebnahme des Setups
+# 6. Außerbetriebnahme des Setups
 Anstatt alle bereitgestellten Ressourcen händisch zu löschen, kann das Bereitstellungskript mit ```-d``` genutzt werden um die vorgenommenen Konfigurationen zu löschen 
