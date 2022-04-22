@@ -18,7 +18,7 @@ Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen
 
 **Voraussetzungen für das Cluster:**
 
-Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
+Damit das unter [Abschnitt 3](https://github.com/sthinbetween/RES#3-bereitstellung-des-anwendungsstacks-im-cluster) bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
 >  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
 
 Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provisionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von lokalem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
