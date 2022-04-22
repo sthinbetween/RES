@@ -243,7 +243,45 @@ watch kubectl get pods --all-namespaces
 kubectl get nodes
 ```
 15. ggf. Dashboard bereitstellen (https://computingforgeeks.com/how-to-install-kubernetes-dashboard-with-nodeport/)
-
+16. NFS-Share konfigurieren
+```
+sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
+# Zeile  
+- --enable-admission-plugins=DefaultStorageClass
+# ersetzen mit 
+ - --enable-admission-plugins=DefaultStorageClass,NodeRestriction
+```
+17. Server neustarten, ggf. ist danach der SWAP wieder eingebunden und Schritt 4 muss wiederholt werden (Syslogs checken)
+    - evt. ist auch ein Neustart des kube-apiservers möglich, habe nur nicht herausgefunden wie
+18. NFS-Storage Klasse erstellen 
+```
+nano sc-nfs.yaml
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-csi
+provisioner: nfs.csi.k8s.io
+parameters:
+# Mit IP des NFS-Shares ersetzen
+  server: 192.168.10.41
+# Mit Name des NFS-Shares ersetzen
+  share: /srv/nfs
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions:
+  - hard
+  - nfsvers=4.1
+```
+19. Storage-Klasse anwenden
+```
+kubectl apply -f sc-nfs.yaml
+```
+21. Storage als default definieren 
+```
+kubectl patch storageclass nfs-csi -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+21. Cluster ist bereit für die Bereitstellung des Anwendungsstacks mit dem k8s-Skript
 
 # 3. Bereitstellung des Anwendungsstacks im Cluster
 
