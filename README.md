@@ -1,5 +1,6 @@
 # RES
 Prüfungsrepo für Rechnernetzadministration / Verteilte Systeme
+
 Aufgabe ist der Aufbau eines Kubernetes-Clusters, welches folgende Struktur bereitstellen soll: 
 
 - selbst entwickelte REST-API, welche Funktionen einer einfachen ToDo-Liste erfüllt: 
