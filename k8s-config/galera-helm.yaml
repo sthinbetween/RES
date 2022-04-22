@@ -600,7 +600,7 @@ persistence:
     - ReadWriteOnce
   ## @param persistence.size Persistent Volume Size
   ##
-  size: 10Gi
+  size: 1Gi
 ## @param priorityClassName Priority Class Name for Statefulset
 ##
 priorityClassName: ""
@@ -689,9 +689,9 @@ livenessProbe:
 ##
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 120
-  periodSeconds: 30
-  timeoutSeconds: 30
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 2
   successThreshold: 1
   failureThreshold: 3
 ## MariaDB Galera containers' startup probe
@@ -707,9 +707,9 @@ startupProbe:
   enabled: false
   ## Initializing the database could take some time
   ##
-  initialDelaySeconds: 360
-  periodSeconds: 30
-  timeoutSeconds: 30
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 2
   successThreshold: 1
   ## Let's wait 600 seconds by default, it should give enough time in any cluster for mysql to init
   ##
