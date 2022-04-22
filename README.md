@@ -105,6 +105,7 @@ microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
     --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
 
 # Download der YAML für die Definition des persistenten Volumes
+# Wichtig, hier noch die IP des NFS-Shares entsprechend anpassen
 wget https://raw.githubusercontent.com/sthinbetween/RES/main/k8s-config/sc-nfs.yaml
 # Anwenden im Cluster
 microk8s kubectl apply -f - < sc-nfs.yaml
