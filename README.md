@@ -255,5 +255,5 @@ Die Bereitstellung kann mit den in [Abschnitt 2](https://github.com/sthinbetween
 Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. 
 Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
 
-## 5. Außerbetriebnahme des Setups
+# 5. Außerbetriebnahme des Setups
 Anstatt alle bereitgestellten Ressourcen händisch zu löschen, kann das Bereitstellungskript mit ```-d``` genutzt werden um die vorgenommenen Konfigurationen zu löschen 
