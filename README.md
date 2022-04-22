@@ -10,7 +10,7 @@ Aufgabe ist der Aufbau eines Kubernetes-Clusters, welches folgende Struktur bere
     - Authentifizierung mit Secret
 - Drei Instanzen der Anwendung sollen ausgeführt werden 
 - persistente Speicherung der Einträge in MariaDB 
-- synchrone Replizierung der Daten in einem MariaDB-Galera-Cluster mit drei MaraiaDB Instanzen 
+- synchrone Replizierung der Daten in einem MariaDB-Galera-Cluster mit drei MariaDB Instanzen 
 - Loadbalancing durch HAProxy
 
 # 1. Microk8s-Cluster aufbauen 
@@ -188,7 +188,11 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
 - die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen
 
-## 3. API-Nutzung
+## 3. API-Beschreibung
+Die API ist eine Spring-Boot-Anwendung (JAVA) und stellt grundlegende Funktionen für eine ToDo-Liste bereit. 
+Für Tests und den Build-Prozess wird Maven genutzt. 
+
+### 3.1 API-Nutzung
 
 für jede Abfrage ist ```secret = "asd45jASBD73-asdd3dfASd-!asF3"``` als Parameter mitzugeben 
 
@@ -248,4 +252,5 @@ microk8s ctr images ls
 ## 4.4. Bereitstellung des Anwendungsstacks 
 
 Die Bereitstellung kann mit den in [Abschnitt 2](https://github.com/sthinbetween/RES/blob/main/README.md#2-bereitstellung-des-anwendungsstacks-im-cluster) beschriebenen Schritten vollzogen werden. 
-Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
+Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. 
+Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
