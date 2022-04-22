@@ -118,16 +118,37 @@ Microk8s ist einfach zu konfigurieren und eignet sich für Testumgebungen sehr g
 
 1. Ausgangslage auch hier ein frisches Ubuntu-Server 20.04 LTS
 2. Kubernetes-Repository hinzufügen: 
-```
+```bash
 sudo apt -y install curl apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 3. Pakete installieren 
-```
+```bash
 sudo apt update
 sudo apt -y install vim git curl wget kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+```
+4. SWAP-Speicher deaktivieren 
+```bash
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo swapoff -a
+```
+5. Kernel-Module aktivieren
+```bash
+# Kernel-Module aktivieren
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# sysctl konfigurieren
+sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+# systctl neu laden 
+sudo sysctl --system
 ```
 # 3. Bereitstellung des Anwendungsstacks im Cluster
 
