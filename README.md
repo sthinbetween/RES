@@ -132,9 +132,9 @@ sudo chmod +x autoconfig-microk8s.sh
 sudo chmod +x autoconfig-k8s.sh
 
 # Skript ausführen 
-sh autoconfig-microk8s.sh
+./autoconfig-microk8s.sh -r 
 # oder 
-sh autoconfig-k8s.sh
+./autoconfig-k8s.sh -r 
 ```
 Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#3-api-nutzung) beschrieben
 
@@ -254,3 +254,6 @@ microk8s ctr images ls
 Die Bereitstellung kann mit den in [Abschnitt 2](https://github.com/sthinbetween/RES/blob/main/README.md#2-bereitstellung-des-anwendungsstacks-im-cluster) beschriebenen Schritten vollzogen werden. 
 Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. 
 Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
+
+## 5. Außerbetriebnahme des Setups
+Anstatt alle bereitgestellten Ressourcen händisch zu löschen, kann das Bereitstellungskript mit ```-d``` genutzt werden um die vorgenommenen Konfigurationen zu löschen 
