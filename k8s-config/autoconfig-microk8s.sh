@@ -38,6 +38,11 @@ while getopts ':lrd' OPTION; do
         echo -e "${GREEN}Entferne HAProxy-Chart...${NC}"
         helm uninstall kubernetes-ingress --namespace haproxy-controller
         echo -e "${GREEN}HA-Proxy entfernt...${NC}"
+        echo -e "${GREEN}Entferne Persistent Volume Claims...${NC}"
+        microk8s kubectl delete pvc data-maria-db-2
+        microk8s kubectl delete pvc data-maria-db-1
+        microk8s kubectl delete pvc data-maria-db-0
+        echo -e "${GREEN}PVCs entfernt...${NC}"
         echo -e "${GREEN}Entferne Konfigurationsdateien...${NC}"
         rm ./galera-helm.yaml
         rm ./todoapi-deployment.yaml
