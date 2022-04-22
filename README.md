@@ -244,7 +244,7 @@ watch kubectl get pods --all-namespaces
 kubectl get nodes
 ```
 15. ggf. Dashboard bereitstellen (https://computingforgeeks.com/how-to-install-kubernetes-dashboard-with-nodeport/)
-16. NFS-Share konfigurieren
+16. K8s für die automatische Bereitstellung von DefaultStorage konfigurieren
 ```
 sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
 # Zeile  
@@ -254,6 +254,7 @@ sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 17. Server neustarten, ggf. ist danach der SWAP wieder eingebunden und Schritt 4 muss wiederholt werden (Syslogs checken)
     - evt. ist auch ein Neustart des kube-apiservers möglich, habe nur nicht herausgefunden wie
+18. nach dem ersten Schritt [hier](https://github.com/sthinbetween/RES/blob/main/README.md#15-nfs-share-f%C3%BCr-persistenten-storage-bereitstellen) einen NFS-Server bereitstellen 
 18. NFS-Storage Klasse erstellen 
 ```
 nano sc-nfs.yaml
