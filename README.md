@@ -112,7 +112,23 @@ microk8s kubectl apply -f - < sc-nfs.yaml
 microk8s kubectl patch storageclass nfs-csi -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
 # 2. Alternative: K8s-Cluster verwenden 
+Microk8s ist einfach zu konfigurieren und eignet sich für Testumgebungen sehr gut. Es scheiden sich allerdings die Geister daran, ob es für Produktivumgebungen geeignet ist. Daher wurde auch eine K8s-Installation getestet.
 
+> genutzte Anleitung dafür: https://computingforgeeks.com/deploy-kubernetes-cluster-on-ubuntu-with-kubeadm/
+
+1. Ausgangslage auch hier ein frisches Ubuntu-Server 20.04 LTS
+2. Kubernetes-Repository hinzufügen: 
+```
+sudo apt -y install curl apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+3. Pakete installieren 
+```
+sudo apt update
+sudo apt -y install vim git curl wget kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+```
 # 3. Bereitstellung des Anwendungsstacks im Cluster
 
 ## 3.1 Automatische Bereitstellung per Skript 
