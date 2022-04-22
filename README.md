@@ -21,7 +21,7 @@ Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen
 Damit das unter 2 bereitgestellte Skript funktioniert, muss eine Default-Storage-Klasse im Cluster vorhanden sein, welche automatisch provisioniert werden kann. 
 >  https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/)
 
-Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provosionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von lokalem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
+Zudem sollte diese kein Local-/Hostpath-Storage sein, da die Provisionierung des Galera-Clusters damit nicht funktioniert hat. Eventuell ist die Nutzung von lokalem Storage dennoch möglich, für das beschriebene Setup wurde jedoch ein NFS-Share genutzt.
 
 > Nutzung von lokalem Storage https://vocon-it.com/2018/12/20/kubernetes-local-persistent-volumes/
 
@@ -243,7 +243,7 @@ watch kubectl get pods --all-namespaces
 kubectl get nodes
 ```
 15. ggf. Dashboard bereitstellen (https://computingforgeeks.com/how-to-install-kubernetes-dashboard-with-nodeport/)
-16. 
+
 
 # 3. Bereitstellung des Anwendungsstacks im Cluster
 
