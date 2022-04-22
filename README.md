@@ -136,11 +136,10 @@ sudo chmod +x autoconfig-k8s.sh
 # oder 
 ./autoconfig-k8s.sh -r 
 ```
-Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#3-api-nutzung) beschrieben
+Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#31-api-nutzung) beschrieben
 
 ## 2.2 Manuelle Bereitstellung 
 ### 2.2.1 Bereitstellung des MariaDB-Galera-Clusters
-
 
 - auf Master-Node: 
 ```bash
@@ -186,7 +185,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - das Deployment erstellt (3 Replicas der ToDo-Api)
   - ein Service erstellt um die ContainerPorts verfügbar zu machen 
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
-- die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen
+- die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen, Nutzungshinweise finden sich in [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#31-api-nutzung).
 
 ## 3. API-Beschreibung
 Die API ist eine Spring-Boot-Anwendung (JAVA) und stellt grundlegende Funktionen für eine ToDo-Liste bereit. 
