@@ -14,7 +14,7 @@ Aufgabe ist der Aufbau eines Kubernetes-Clusters, welches folgende Struktur bere
 - Loadbalancing durch HAProxy
 
 # 1. Microk8s-Cluster aufbauen 
-Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen erfüllt sind, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit [Abschnitt 2](https://github.com/sthinbetween/RES#3-bereitstellung-des-anwendungsstacks-im-cluster) begonnnen werden.
+Wenn bereits ein K8s-Cluster vorhanden ist und die nachfolgenden Voraussetzungen erfüllt sind, sind die hier beschriebenen Schritte nicht notwendig und es kann direkt mit [Abschnitt 3](https://github.com/sthinbetween/RES#3-bereitstellung-des-anwendungsstacks-im-cluster) begonnnen werden.
 
 **Voraussetzungen für das Cluster:**
 
@@ -137,7 +137,7 @@ sudo chmod +x autoconfig-k8s.sh
 # oder 
 ./autoconfig-k8s.sh -r 
 ```
-Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#41-api-nutzung) beschrieben
+Nach einer kurzen Wartezeit ist die API über die IPs der K8s-Nodes verfügbar (Port 30000 für HTTP, Port 30001 für HTTPS). Die Api-Nutzung ist unter [Abschnitt 4](https://github.com/sthinbetween/RES/blob/main/README.md#41-api-nutzung) beschrieben
 
 ## 3.2 Manuelle Bereitstellung 
 ### 3.2.1 Bereitstellung des MariaDB-Galera-Clusters
@@ -186,7 +186,7 @@ helm install kubernetes-ingress haproxytech/kubernetes-ingress \
   - das Deployment erstellt (3 Replicas der ToDo-Api)
   - ein Service erstellt um die ContainerPorts verfügbar zu machen 
   - auf Basis des HAProxy eine Ingress-Ressource erstellt, welche auf den NodeIPs einkommende Anfragen auf den vorab erstellten Ports zum Service weiterleitet    
-- die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen, Nutzungshinweise finden sich in [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#41-api-nutzung).
+- die API ist im Anschluss unter ```http://<NodeIP>:30000``` oder ```https://<NodeIP>:30001``` zu erreichen, Nutzungshinweise finden sich in [Abschnitt 4](https://github.com/sthinbetween/RES/blob/main/README.md#41-api-nutzung).
 
 ## 4. API-Beschreibung
 Die API ist eine Spring-Boot-Anwendung (JAVA) und stellt grundlegende Funktionen für eine ToDo-Liste bereit. 
@@ -251,7 +251,7 @@ microk8s ctr images ls
 ```
 ## 5.4. Bereitstellung des Anwendungsstacks 
 
-Die Bereitstellung kann mit den in [Abschnitt 2](https://github.com/sthinbetween/RES/blob/main/README.md#3-bereitstellung-des-anwendungsstacks-im-cluster) beschriebenen Schritten vollzogen werden. 
+Die Bereitstellung kann mit den in [Abschnitt 3](https://github.com/sthinbetween/RES/blob/main/README.md#3-bereitstellung-des-anwendungsstacks-im-cluster) beschriebenen Schritten vollzogen werden. 
 Jedoch muss für die Bereitstellung per Skript zusätzlich ```-l``` als Argument bei der Skriptausführung übergeben werden. 
 Bei manueller Bereitstellung muss die todoapi-deployment.yaml durch die [Lokale-Deployment-YAML](k8s-config/local/todo-deployment.yaml) ersetzt werden.
 
