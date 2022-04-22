@@ -242,6 +242,8 @@ watch kubectl get pods --all-namespaces
 ```bash
 kubectl get nodes
 ```
+15. ggf. Dashboard bereitstellen (https://computingforgeeks.com/how-to-install-kubernetes-dashboard-with-nodeport/)
+16. 
 
 # 3. Bereitstellung des Anwendungsstacks im Cluster
 
